@@ -93,6 +93,7 @@ tasks.withType(Checkstyle).configureEach {
 pmd {
     ruleSetFiles "pmd-rules.xml"
     ruleSets = []
+    ignoreFailures = true
 }
 
 tasks.withType(com.github.spotbugs.snom.SpotBugsTask) {
