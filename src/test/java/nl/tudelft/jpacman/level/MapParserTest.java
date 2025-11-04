@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.ArrayList;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -42,6 +43,25 @@ class MapParserTest {
         map.add("############");
         mapParser.parseMap(map);
         Mockito.verify(levelFactory, Mockito.times(1)).createGhost();
+    }
 
+    /**
+     * Test for the parseMap method (bad map).
+     */
+    @Test
+    public void testParseMapWrong1() {
+        IllegalArgumentException thrown = Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            MockitoAnnotations.initMocks(this);
+            assertNotNull(boardFactory);
+            assertNotNull(levelFactory);
+            MapParser mapParser = new MapParser(levelFactory, boardFactory);
+            ArrayList<String> map = new ArrayList<>();
+            /*
+             * Create a map with inconsistent size between
+             * each row or contain invalid characters
+             */
+            mapParser.parseMap(map);
+        });
+        Assertions.assertEquals("Invalid map", thrown.getMessage());
     }
 }
